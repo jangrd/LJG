@@ -14,11 +14,11 @@ typedef struct {
             LJG_MetaVec_Header* header = (LJG_MetaVec_Header*)malloc(sizeof(*metavec) * size + sizeof(LJG_MetaVec_Header)); \
             if (header != NULL) { \
                 header->count = 0; \
-                header->capacity = size \
+                header->capacity = size; \
                 metavec = (void*)(header + 1); \
             } \
         } \
-        Header* header = (Header*)(metavec) - 1 \
+        Header* header = (Header*)(metavec) - 1; \
         if (header->count >= header->capacity) { \
             header->capacity *= 1.5; \
             header = realloc(header, sizeof(*metavec) * header->capacity + sizeof(LJG_MetaVec_Header)); \
