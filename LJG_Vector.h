@@ -42,6 +42,19 @@ void LJG_Vector_Free(LJG_Vector* vector) {
     free(vector->data);
 }
 
+void LJG_Vector_Append(LJG_Vector* vector, void* data) {
+    void* dest = (char*)vector->data + (vector->count * vector->element_size);
+    memcpy(dest, data, vector->element_size);
+    vector->count += 1;
+}
+
+// returns NULL if index is out of range
+void* LJG_Vector_Get(LJG_Vector* vector, size_t index) {
+    if (index >= size) return NULL;
+    return vector->data[index];
+}
+
+
 LJG_Vector* LJG_Vector_New(size_t element_size, size_t init_capacity) {
     LJG_Vector* vector = malloc(sizeof(LJG_Vector));
     LJG_Vector_Init(vector, element_size, init_capacity);
