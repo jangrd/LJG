@@ -17,8 +17,11 @@ typedef struct {
 
 bool LJG_Vector_Init(LJG_Vector* vector, size_t element_size, size_t init_capacity);
 void LJG_Vector_Free(LJG_Vector* vector);
+
 LJG_Vector* LJG_Vector_New(size_t element_size, size_t init_capacity);
 void LJG_Vector_Destroy(LJG_Vector* vector);
+
+void LJG_Vector_Append(LJG_Vector* vector, void* data);
 
 #else // LJG_IMPLEMENTATION
 
