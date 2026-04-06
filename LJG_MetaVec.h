@@ -18,7 +18,7 @@ typedef struct {
                 metavec = (void*)(header + 1); \
             } \
         } \
-        Header* header = (Header*)(metavec) - 1; \
+        LJG_MetaVec_Header* header = (Header*)(metavec) - 1; \
         if (header->count >= header->capacity) { \
             header->capacity *= 1.5; \
             header = realloc(header, sizeof(*metavec) * header->capacity + sizeof(LJG_MetaVec_Header)); \
