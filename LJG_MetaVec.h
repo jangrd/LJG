@@ -8,17 +8,19 @@ typedef struct {
     size_t capacity;
 } LJG_MetaVec_Header;
 
+#define LJG_METAVEC_DEFAULT_SIZE 32
+
 #define LJG_MetaVec_Push(metavec, value) \
     do { \
         if (metavec == NULL) { \
-            LJG_MetaVec_Header* header = (LJG_MetaVec_Header*)malloc(sizeof(*metavec) * size + sizeof(LJG_MetaVec_Header)); \
+            LJG_MetaVec_Header* header = (LJG_MetaVec_Header*)malloc(sizeof(*metavec) * LJG_METAVEC_DEFAULT_SIZE + sizeof(LJG_MetaVec_Header)); \
             if (header != NULL) { \
                 header->count = 0; \
-                header->capacity = size; \
+                header->capacity = LJG_METAVEC_DEFAULT_SIZE; \
                 metavec = (void*)(header + 1); \
             } \
         } \
-        LJG_MetaVec_Header* header = (Header*)(metavec) - 1; \
+        LJG_MetaVec_Header* header = (LJG_MetaVec_Header*)(metavec) - 1; \
         if (header->count >= header->capacity) { \
             header->capacity *= 1.5; \
             header = realloc(header, sizeof(*metavec) * header->capacity + sizeof(LJG_MetaVec_Header)); \
