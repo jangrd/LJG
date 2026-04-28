@@ -7,7 +7,8 @@
 // USAGE:
 //
 //  LJG_MetaVec_Init(PTR, SIZE)
-//  DESC:   Initializes vector for type *PTR at PTR, of size SIZE
+//  DESC:   Initializes vector for type *PTR at PTR, of size SIZE.
+//          Overrides errno with 0 by default
 //  ERROR:  On malloc fail errno is set to ENOMEM
 //
 //  LJG_MetaVec_Len(METAVEC)
@@ -15,6 +16,7 @@
 //  
 //  LJG_MetaVec_Push(METAVEC, VALUE)
 //  DESC:   Adds VALUE to end of METAVEC (and resizes memory if needed)
+//          Overrides errno with 0 by default
 //  ERROR:  On realloc fail errno is set to ENOMEM
 //
 //  LJG_MetaVec_Free(METAVEC)
@@ -51,6 +53,7 @@ typedef struct {
 
 #define LJG_MetaVec_Init(metavec, size) \
     do { \
+        errno = 0; \
         _LJG_MetaVec_Header* header = (_LJG_MetaVec_Header*)malloc(sizeof(_LJG_MetaVec_Header) + size * sizeof(*(metavec))); \
         if (header != NULL) { \
             header->count = 0; \
@@ -61,6 +64,7 @@ typedef struct {
 
 #define LJG_MetaVec_Push(metavec, value) \
     do { \
+        errno = 0; \
         _LJG_MetaVec_Header* header = (_LJG_MetaVec_Header*)(metavec) - 1; \
         if (header->count >= header->capacity) { \
             _LJG_MetaVec_Header* new = realloc(header, sizeof(_LJG_MetaVec_Header) + header->capacity*2 * sizeof(*(metavec))); \
