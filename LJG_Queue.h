@@ -38,6 +38,8 @@ typedef struct _LJG_Queue_Header {
 
 #define LJG_Queue_Pop(ptr) (ptr)[(((_LJG_Queue_Header*)(ptr) - 1)->first)++]
 
+// TODO: overflow calculation
+
 int main() {
     size_t* queue; // LJG_Queue
     LJG_Queue_Init(queue, 1024);
