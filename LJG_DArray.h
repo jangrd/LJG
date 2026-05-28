@@ -97,6 +97,7 @@ typedef struct {
 #define LJG_DArray_Insert(darr, value, idx) \
     do { \
         errno = 0; \
+        size_t _ljg_idx = (idx); \
         LJG_DArray_Header* _ljg_h = (LJG_DArray_Header*)(darr) - 1; \
         if (_ljg_h->count >= _ljg_h->capacity) { \
             LJG_DArray_Header* _ljg_new = realloc(_ljg_h, sizeof(LJG_DArray_Header) + _ljg_h->capacity * 2 * sizeof(*(darr))); \
@@ -109,8 +110,8 @@ typedef struct {
                 break; \
             } \
         } \
-        memmove((darr) + (idx) + 1, (darr) + (idx), (_ljg_h->count - (idx)) * sizeof(*(darr))); \
-        (darr)[(idx)] = (value); \
+        memmove((darr) + _ljg_idx + 1, (darr) + _ljg_idx, (_ljg_h->count - _ljg_idx) * sizeof(*(darr))); \
+        (darr)[_ljg_idx] = (value); \
         _ljg_h->count++; \
     } while (0)
 
